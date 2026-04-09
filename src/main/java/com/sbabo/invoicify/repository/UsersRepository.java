@@ -1,8 +1,8 @@
 package com.sbabo.invoicify.repository;
 
-import com.sbabo.invoicify.model.User;
+import com.sbabo.invoicify.model.Users;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UserRepository extends JpaRepository<User, Long> {
+public interface UsersRepository extends JpaRepository<Users, Long> {
     
 }
