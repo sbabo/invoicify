@@ -8,18 +8,17 @@ import lombok.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Users {
+public class Client {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
+
     private String email;
 
-    private String password;
-
-    public Users(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private Users user;
 }
