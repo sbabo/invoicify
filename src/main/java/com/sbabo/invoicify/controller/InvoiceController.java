@@ -56,5 +56,22 @@ public class InvoiceController {
                 .contentType(MediaType.APPLICATION_PDF)
                 .body(pdfStream.readAllBytes());
     }
+
+    @PutMapping("/{id}/pay")
+    public Invoice payInvoice(@PathVariable Long id) {
+        Invoice invoice = invoiceRepository.findById(id).orElseThrow(() -> new RuntimeException("Invoice not found"));
+        invoice.setStatus("PAID");
+        return invoiceRepository.save(invoice);
+    }
+
+    @GetMapping("/status")
+    public List<Invoice> getByStatus(@RequestParam String status) {
+        return invoiceRepository.findByStatus(status);
+    }
+
+    @GetMapping("/filter")
+    public List<Invoice> getByClientIdAndStatus(@RequestParam Long clientId, @RequestParam String status) {
+        return invoiceRepository.findByClientIdAndStatus(clientId, status);
+    }
 }
 

@@ -18,7 +18,8 @@ public class Invoice {
 
     private Double amount;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private InvoiceStatus status;
 
     private LocalDate date;
 
