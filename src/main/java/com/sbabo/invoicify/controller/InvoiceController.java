@@ -4,6 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.sbabo.invoicify.model.Invoice;
+import com.sbabo.invoicify.model.InvoiceStatus;
 import com.sbabo.invoicify.model.Client;
 
 import com.sbabo.invoicify.repository.InvoiceRepository;
@@ -19,6 +20,7 @@ import org.springframework.http.MediaType;
 
 @RestController
 @RequestMapping("/invoices")
+@CrossOrigin
 public class InvoiceController {
     
     private final InvoiceRepository invoiceRepository;
@@ -36,7 +38,7 @@ public class InvoiceController {
         Client client = clientRepository.findById(clientId).orElseThrow(() -> new RuntimeException("Client not found"));
         invoice.setClient(client);
         invoice.setDate(LocalDate.now());
-        invoice.setStatus("UNPAID");
+        invoice.setStatus(InvoiceStatus.UNPAID);
         return invoiceRepository.save(invoice);
     }
 
@@ -60,7 +62,7 @@ public class InvoiceController {
     @PutMapping("/{id}/pay")
     public Invoice payInvoice(@PathVariable Long id) {
         Invoice invoice = invoiceRepository.findById(id).orElseThrow(() -> new RuntimeException("Invoice not found"));
-        invoice.setStatus("PAID");
+        invoice.setStatus(InvoiceStatus.PAID);
         return invoiceRepository.save(invoice);
     }
 
